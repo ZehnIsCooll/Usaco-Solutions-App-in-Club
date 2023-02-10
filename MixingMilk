@@ -1,0 +1,52 @@
+//you will need to create your own class file
+
+static final int N = 3;  // The number of buckets (which is 3)
+	static final int TURN_NUM = 100;
+
+
+	public static void main(String[] args) throws IOException {
+		Kattio io = new Kattio("mixmilk");
+
+
+		// capacity[i] is the maximum capacity of bucket i
+		int[] capacity = new int[N];
+		// milk[i] is the current amount of milk in bucket i
+		int[] milk = new int[N];
+
+
+		for (int i = 0; i < N; i++) {
+			capacity[i] = io.nextInt();
+			milk[i] = io.nextInt();
+		}
+
+
+		for (int i = 0; i < TURN_NUM; i++) {
+			int bucket1 = i % N;
+			int bucket2 = (i + 1) % N;
+
+
+			/*
+			 * The amount of milk to pour is the minimum of the remaining milk
+			 * in bucket 1 and the available capacity of bucket 2
+			 */
+			int amt = Math.min(milk[bucket1], capacity[bucket2] - milk[bucket2]);
+
+
+			milk[bucket1] -= amt;
+			milk[bucket2] += amt;
+		}
+
+
+		for (int m : milk) {
+			io.println(m);
+		}
+		io.close();
+	}
+
+
+//We can simulate the process of pouring buckets. 
+The amount of milk poured from bucket i to bucket j is the smaller of the amount
+of milk in bucket i (which is mi) and the remaining space in bucket j (which is cj - mj).
+We can just handle all of these operations in order, using an array c to store the maximum 
+capacities of each bucket, and an array m to store the current milk level in each bucket,
+which we update during the process.

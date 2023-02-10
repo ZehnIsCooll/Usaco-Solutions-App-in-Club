@@ -1,0 +1,39 @@
+//you will need to create your own class
+import java.util.*;
+import java.io.*;
+public class Main {
+
+   public static void main(String[] args) throws IOException {
+       BufferedReader in = new BufferedReader(new FileReader("blist.in"));
+       PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("blist.out")));
+       StringTokenizer st = new StringTokenizer(in.readLine());
+       int n = Integer.parseInt(st.nextToken());
+       int[] timeline = new int[1001];
+       for (int i = 0; i < n; i++) {
+           st = new StringTokenizer(in.readLine());
+           int s = Integer.parseInt(st.nextToken());
+           int t = Integer.parseInt(st.nextToken());
+           int b = Integer.parseInt(st.nextToken());
+           for (int j = s; j <= t; j++) {
+               timeline[j]+=b;
+           }
+       }
+
+       int max = 0;
+       for (int i  = 0; i < timeline.length; i++) {
+           max  = Math.max(max, timeline[i]);
+       }
+       out.println(max);
+       in.close();
+       out.close();
+   }
+}
+
+//We can simulate through each set of start and end times. 
+We can have an array as a timeline. For each start and end 
+time we increment the amount of buckets used at the current 
+time. Then, we loop through the entire timeline and find the 
+maximum number of buckets used.
+
+
+
